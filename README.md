@@ -1,4 +1,4 @@
-# UsTube - YouTube Video Player (YouTube Data API v3)
+# ImmonkeiTube - YouTube Video Player (YouTube Data API v3)
 
 A modern, responsive YouTube video player and explorer web application built with **React**, **TypeScript**, **Tailwind CSS**, and the official **Google YouTube Data API v3**.
 
