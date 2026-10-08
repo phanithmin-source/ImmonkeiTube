@@ -1,7 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Header } from './components/Header';
-import { CategoryChips, CATEGORIES } from './components/CategoryChips';
-import type { CategoryOption } from './components/CategoryChips';
+import { CategoryChips } from './components/CategoryChips';
+import { CATEGORIES } from './constants/categories';
+import type { CategoryOption } from './constants/categories';
 import { VideoCard } from './components/VideoCard';
 import { VideoPlayerView } from './components/VideoPlayerView';
 import { DirectUrlModal } from './components/DirectUrlModal';
@@ -19,13 +20,19 @@ import {
 } from './services/youtubeApi';
 import { 
   AlertTriangle, 
-  Play, 
   Flame, 
-  Film
+  Film,
+  Sparkles,
+  Link as LinkIcon,
+  X,
+  Play
 } from 'lucide-react';
 
-const HISTORY_STORAGE_KEY = 'ustube_history_list';
-const SAVED_STORAGE_KEY = 'ustube_saved_list';
+const HISTORY_STORAGE_KEY = 'immonkeitube_history_list';
+const LEGACY_HISTORY_KEY = 'ustube_history_list';
+const SAVED_STORAGE_KEY = 'immonkeitube_saved_list';
+const LEGACY_SAVED_KEY = 'ustube_saved_list';
+const HERO_DISMISSED_KEY = 'immonkeitube_hero_dismissed';
 
 export function App() {
   const [apiKey, setApiKey] = useState<string>(getStoredApiKey());
@@ -43,10 +50,19 @@ export function App() {
   const [isApiKeyModalOpen, setIsApiKeyModalOpen] = useState(false);
   const [isHistoryModalOpen, setIsHistoryModalOpen] = useState(false);
 
-  // History & Saved state
+  // Hero banner state
+  const [isHeroDismissed, setIsHeroDismissed] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem(HERO_DISMISSED_KEY) === 'true';
+    } catch {
+      return false;
+    }
+  });
+
+  // History & Saved state (with legacy key fallback)
   const [history, setHistory] = useState<VideoItem[]>(() => {
     try {
-      const stored = localStorage.getItem(HISTORY_STORAGE_KEY);
+      const stored = localStorage.getItem(HISTORY_STORAGE_KEY) || localStorage.getItem(LEGACY_HISTORY_KEY);
       return stored ? JSON.parse(stored) : [];
     } catch {
       return [];
@@ -55,7 +71,7 @@ export function App() {
 
   const [saved, setSaved] = useState<VideoItem[]>(() => {
     try {
-      const stored = localStorage.getItem(SAVED_STORAGE_KEY);
+      const stored = localStorage.getItem(SAVED_STORAGE_KEY) || localStorage.getItem(LEGACY_SAVED_KEY);
       return stored ? JSON.parse(stored) : [];
     } catch {
       return [];
@@ -95,6 +111,15 @@ export function App() {
     }
   }, [saved]);
 
+  const handleDismissHero = () => {
+    setIsHeroDismissed(true);
+    try {
+      localStorage.setItem(HERO_DISMISSED_KEY, 'true');
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   // Load videos based on category or search
   const loadVideos = useCallback(
     async (query?: string, category?: CategoryOption) => {
@@ -115,7 +140,7 @@ export function App() {
         }
 
         if (results.length === 0) {
-          setError('No videos found for this search. Try another query.');
+          setError('No videos found for this query. Try another keyword or category.');
         } else {
           setVideos(results);
         }
@@ -162,7 +187,7 @@ export function App() {
         const videoDetails = await fetchVideoDetails(apiKey, videoId);
         handleSelectVideo(videoDetails);
         showToast(`Loaded: ${videoDetails.title}`, 'success');
-      } catch (err) {
+      } catch {
         // If API fails or video is private, still create playable item
         const fallbackItem: VideoItem = {
           id: videoId,
@@ -215,7 +240,7 @@ export function App() {
   );
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col selection:bg-red-600 selection:text-white">
+    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
       {/* Toast Notifications */}
       <Toast toasts={toasts} onDismiss={dismissToast} />
 
@@ -256,13 +281,91 @@ export function App() {
       ) : (
         // Video Discovery Feed View
         <main className="flex-1 flex flex-col">
-          {/* Category Pills Bar */}
+          {/* Category Chips Bar */}
           <CategoryChips
             activeCategory={activeCategory.id}
             onSelectCategory={handleSelectCategory}
           />
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 w-full flex-1">
+            {/* Hero Welcome Spotlight (Shows only on All tab when not searching and not dismissed) */}
+            {!searchQuery && activeCategory.id === 'all' && !isHeroDismissed && (
+              <div className="relative mb-8 rounded-3xl border border-white/[0.08] bg-gradient-to-br from-zinc-900/90 via-zinc-900/50 to-zinc-950 p-6 sm:p-8 overflow-hidden shadow-xl">
+                {/* Background ambient decorative glow */}
+                <div className="absolute -top-24 -right-24 w-80 h-80 bg-red-600/15 rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-orange-600/10 rounded-full blur-3xl pointer-events-none" />
+
+                <div className="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                  {/* Left: Branding & Message */}
+                  <div className="flex items-start sm:items-center gap-4 sm:gap-6 flex-1">
+                    <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-zinc-800 to-zinc-900 border border-red-500/30 p-1 shadow-lg shadow-red-600/20 shrink-0 flex items-center justify-center overflow-hidden">
+                      <img
+                        src="/assets/immonkeitube-logo.webp"
+                        alt="ImmonkeiTube Mascot"
+                        className="w-full h-full object-contain scale-125"
+                      />
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="text-xl sm:text-2xl font-black tracking-tight text-white">
+                          Welcome to Immonkei<span className="text-red-500">Tube</span>
+                        </span>
+                        <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-red-500/15 text-red-400 border border-red-500/30">
+                          v3 API
+                        </span>
+                        <a
+                          href="https://immonkei.dev"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-zinc-800/90 hover:bg-zinc-800 border border-white/[0.1] text-zinc-300 hover:text-white transition-all text-[11px] font-medium group"
+                          title="Prompted by Immonkei.dev"
+                        >
+                          <Sparkles className="w-3 h-3 text-red-400 group-hover:rotate-12 transition-transform" />
+                          <span>Prompted by <strong className="text-red-400 group-hover:text-red-300 font-semibold">Immonkei.dev</strong></span>
+                        </a>
+                      </div>
+                      <p className="text-xs sm:text-sm text-zinc-300 max-w-xl leading-relaxed">
+                        High-performance YouTube player featuring direct video URL streaming, ambient cinema glow, category discovery, and custom Google API key connectivity.
+                      </p>
+                      
+                      {/* Feature Pills */}
+                      <div className="flex flex-wrap items-center gap-2 pt-1 text-[11px] text-zinc-400">
+                        <span className="flex items-center gap-1 bg-zinc-800/80 px-2 py-0.5 rounded-md border border-white/[0.06]">
+                          <Sparkles className="w-3 h-3 text-amber-400" /> 4K Ultra HD
+                        </span>
+                        <span className="flex items-center gap-1 bg-zinc-800/80 px-2 py-0.5 rounded-md border border-white/[0.06]">
+                          <LinkIcon className="w-3 h-3 text-red-400" /> Direct ID / Link
+                        </span>
+                        <span className="flex items-center gap-1 bg-zinc-800/80 px-2 py-0.5 rounded-md border border-white/[0.06]">
+                          ⚡ Zero Lag
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right: Quick Launch & Dismiss */}
+                  <div className="flex items-center gap-3 shrink-0 w-full sm:w-auto">
+                    <button
+                      onClick={() => setIsDirectUrlModalOpen(true)}
+                      className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs sm:text-sm font-semibold transition-all cursor-pointer shadow-md shadow-red-600/25 hover:scale-[1.02]"
+                    >
+                      <Play className="w-3.5 h-3.5 fill-white" />
+                      <span>Play Any Video URL</span>
+                    </button>
+                    <button
+                      onClick={handleDismissHero}
+                      className="p-2 text-zinc-400 hover:text-white rounded-xl hover:bg-zinc-800 transition-colors cursor-pointer"
+                      title="Dismiss welcome banner"
+                      aria-label="Dismiss banner"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* API Notice / Quota Banner */}
             {isUsingFallback && (
               <div className="mb-6 p-4 rounded-2xl bg-amber-950/40 border border-amber-600/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-amber-200">
@@ -272,19 +375,19 @@ export function App() {
                     <span className="font-bold text-amber-100">
                       YouTube API Notice:
                     </span>{' '}
-                    {error || 'Displaying curated demo library.'}
+                    {error || 'Displaying curated library. Connect your own Google API key for unrestricted catalog access.'}
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 shrink-0">
                   <button
                     onClick={() => setIsApiKeyModalOpen(true)}
-                    className="px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold transition-colors cursor-pointer"
+                    className="px-3.5 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold transition-colors cursor-pointer shadow-sm"
                   >
                     Configure Key
                   </button>
                   <button
                     onClick={() => loadVideos(searchQuery, activeCategory)}
-                    className="px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-medium transition-colors cursor-pointer"
+                    className="px-3.5 py-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-medium transition-colors cursor-pointer border border-zinc-700"
                   >
                     Retry
                   </button>
@@ -308,7 +411,7 @@ export function App() {
                     : `${activeCategory.label} Videos`}
                 </h2>
               </div>
-              <span className="text-xs text-zinc-400">
+              <span className="text-xs text-zinc-400 font-mono">
                 {videos.length} videos available
               </span>
             </div>
@@ -320,7 +423,7 @@ export function App() {
                 {[...Array(8)].map((_, i) => (
                   <div
                     key={i}
-                    className="bg-zinc-900/40 rounded-2xl border border-zinc-800/60 overflow-hidden animate-pulse flex flex-col"
+                    className="bg-zinc-900/40 rounded-2xl border border-white/[0.04] overflow-hidden animate-pulse flex flex-col"
                   >
                     <div className="aspect-video bg-zinc-800/60 w-full" />
                     <div className="p-3.5 space-y-2.5">
@@ -338,14 +441,18 @@ export function App() {
               </div>
             ) : videos.length === 0 ? (
               <div className="py-20 text-center space-y-4">
-                <div className="w-16 h-16 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center mx-auto text-zinc-500">
-                  <Play className="w-8 h-8" />
+                <div className="w-16 h-16 rounded-2xl bg-zinc-900 border border-white/[0.08] flex items-center justify-center mx-auto overflow-hidden shadow-lg">
+                  <img
+                    src="/assets/immonkeitube-logo.webp"
+                    alt="ImmonkeiTube"
+                    className="w-12 h-12 object-contain"
+                  />
                 </div>
                 <h3 className="text-base font-semibold text-zinc-200">
                   No videos found
                 </h3>
                 <p className="text-sm text-zinc-400 max-w-md mx-auto">
-                  Try searching for another topic or explore one of the category chips above.
+                  Try searching for another keyword or pick one of the category chips above.
                 </p>
                 <button
                   onClick={() => {
@@ -353,7 +460,7 @@ export function App() {
                     setActiveCategory(CATEGORIES[0]);
                     loadVideos(undefined, CATEGORIES[0]);
                   }}
-                  className="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white text-sm font-semibold transition-colors cursor-pointer"
+                  className="px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white text-sm font-semibold transition-all cursor-pointer shadow-md shadow-red-600/20"
                 >
                   Reset Feed
                 </button>
@@ -376,12 +483,45 @@ export function App() {
       )}
 
       {/* Footer */}
-      <footer className="border-t border-zinc-800/80 bg-zinc-950 py-6 text-center text-xs text-zinc-500">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
-            <span className="font-bold text-zinc-300">UsTube</span>
-            <span>• Powered by Google YouTube Data API v3</span>
+      <footer className="border-t border-white/[0.08] bg-zinc-950 py-6 text-center text-xs text-zinc-500">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2.5">
+            <div className="w-6 h-6 rounded-lg bg-zinc-900 border border-red-500/30 flex items-center justify-center overflow-hidden">
+              <img
+                src="/assets/immonkeitube-logo.webp"
+                alt="ImmonkeiTube"
+                className="w-full h-full object-contain scale-125"
+              />
+            </div>
+            <span className="font-bold text-zinc-300">
+              Immonkei<span className="text-red-500">Tube</span>
+            </span>
+            <span className="text-zinc-600 hidden sm:inline">•</span>
+            <span>Powered by Google YouTube Data API v3</span>
+            <span className="text-zinc-600 hidden sm:inline">•</span>
+            <a
+              href="https://immonkei.dev"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-950/60 hover:bg-red-900/80 border border-red-800/60 text-red-300 hover:text-white transition-all group font-medium shadow-sm hover:scale-[1.02]"
+              title="Prompted by Immonkei.dev"
+            >
+              <Sparkles className="w-3 h-3 text-red-400 group-hover:rotate-12 transition-transform" />
+              <span>Prompted by <strong className="text-white group-hover:text-red-300">Immonkei.dev</strong></span>
+            </a>
           </div>
+
+          {/* Keyboard shortcut tips */}
+          <div className="hidden md:flex items-center gap-3 text-[11px] text-zinc-500">
+            <span>
+              Press <kbd className="bg-zinc-800 text-zinc-300 px-1.5 py-0.5 rounded border border-zinc-700 font-mono">/</kbd> to search
+            </span>
+            <span>•</span>
+            <span>
+              Press <kbd className="bg-zinc-800 text-zinc-300 px-1.5 py-0.5 rounded border border-zinc-700 font-mono">Esc</kbd> to exit player
+            </span>
+          </div>
+
           <div className="flex items-center gap-4 text-zinc-400">
             <button
               onClick={() => setIsDirectUrlModalOpen(true)}

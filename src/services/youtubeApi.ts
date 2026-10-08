@@ -1,11 +1,12 @@
 import type { VideoItem, CommentItem } from '../types/youtube';
 
 export const DEFAULT_API_KEY = 'AIzaSyDtiy5eYjQJi3h2JZfJNFI58PI6EUa2Kvo';
-const API_KEY_STORAGE_KEY = 'ustube_api_key';
+const API_KEY_STORAGE_KEY = 'immonkeitube_api_key';
+const LEGACY_API_KEY_STORAGE_KEY = 'ustube_api_key';
 
 export function getStoredApiKey(): string {
   try {
-    const key = localStorage.getItem(API_KEY_STORAGE_KEY);
+    const key = localStorage.getItem(API_KEY_STORAGE_KEY) || localStorage.getItem(LEGACY_API_KEY_STORAGE_KEY);
     return key && key.trim().length > 0 ? key.trim() : DEFAULT_API_KEY;
   } catch {
     return DEFAULT_API_KEY;
@@ -23,6 +24,7 @@ export function setStoredApiKey(key: string): void {
 export function resetApiKey(): string {
   try {
     localStorage.removeItem(API_KEY_STORAGE_KEY);
+    localStorage.removeItem(LEGACY_API_KEY_STORAGE_KEY);
   } catch (e) {
     console.error('Failed to reset API key', e);
   }
@@ -106,8 +108,8 @@ export function parseYouTubeVideoId(input: string): string | null {
     return trimmed;
   }
 
-  // Regex for youtube.com, youtu.be, shorts
-  const regExp = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/|youtube\.com\/shorts\/)([^"&?\/\s]{11})/;
+  // Regex for youtube.com, youtu.be, shorts, live
+  const regExp = /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=|shorts\/|live\/)|youtu\.be\/)([^"&?/\s]{11})/;
   const match = trimmed.match(regExp);
   return match && match[1] ? match[1] : null;
 }

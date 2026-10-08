@@ -57,13 +57,27 @@ export const VideoPlayerView = ({
   const [newCommentText, setNewCommentText] = useState('');
   const [currentVideoDetails, setCurrentVideoDetails] = useState<VideoItem>(video);
 
-  // Scroll to top when video changes
+  // Keyboard shortcut: Esc to return to feed
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        const activeTag = (document.activeElement as HTMLElement)?.tagName;
+        if (activeTag !== 'INPUT' && activeTag !== 'TEXTAREA') {
+          onBack();
+        }
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onBack]);
+
+  // Scroll to top and reset interaction state when video changes
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setCurrentVideoDetails(video);
     setHasLiked(false);
     setHasDisliked(false);
-  }, [video.id]);
+  }, [video]);
 
   // Load detailed statistics and comments
   useEffect(() => {
@@ -107,7 +121,7 @@ export const VideoPlayerView = ({
     return () => {
       isCancelled = true;
     };
-  }, [video.id, apiKey]);
+  }, [video.id, video.viewCount, apiKey]);
 
   const handleSubscribeToggle = () => {
     const next = !isSubscribed;
@@ -154,7 +168,7 @@ export const VideoPlayerView = ({
 
     const userComment: CommentItem = {
       id: `local-${Date.now()}`,
-      authorDisplayName: 'You (UsTube Guest)',
+      authorDisplayName: 'You (ImmonkeiTube Guest)',
       authorProfileImageUrl: '',
       textDisplay: newCommentText.trim(),
       publishedAt: new Date().toISOString(),
@@ -174,17 +188,22 @@ export const VideoPlayerView = ({
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         <button
           onClick={onBack}
-          className="flex items-center gap-2 text-sm font-medium text-zinc-300 hover:text-white px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 transition-colors cursor-pointer"
+          className="flex items-center gap-2 text-sm font-medium text-zinc-300 hover:text-white px-3.5 py-1.5 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 border border-white/[0.08] transition-all cursor-pointer shadow-sm hover:scale-[1.02]"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-4 h-4 text-zinc-400" />
           <span>Back to Feed</span>
+          <kbd className="hidden sm:inline text-[10px] font-mono text-zinc-500 bg-zinc-800 px-1.5 py-0.5 rounded border border-zinc-700/60 ml-1">
+            Esc
+          </kbd>
         </button>
 
         <div className="flex items-center gap-2 text-xs text-zinc-400">
           <button
             onClick={() => setIsAmbientOn(!isAmbientOn)}
-            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-colors ${
-              isAmbientOn ? 'text-amber-400 bg-amber-400/10' : 'text-zinc-400 hover:text-zinc-200'
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border transition-all cursor-pointer ${
+              isAmbientOn 
+                ? 'text-amber-400 bg-amber-500/10 border-amber-500/30 shadow-sm' 
+                : 'text-zinc-400 hover:text-zinc-200 border-zinc-800/80 bg-zinc-900/50'
             }`}
             title="Toggle Ambient Glow effect"
           >
@@ -194,13 +213,15 @@ export const VideoPlayerView = ({
           
           <button
             onClick={() => setIsTheaterMode(!isTheaterMode)}
-            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-colors ${
-              isTheaterMode ? 'text-red-400 bg-red-400/10' : 'text-zinc-400 hover:text-zinc-200'
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border transition-all cursor-pointer ${
+              isTheaterMode 
+                ? 'text-red-400 bg-red-500/10 border-red-500/30 shadow-sm' 
+                : 'text-zinc-400 hover:text-zinc-200 border-zinc-800/80 bg-zinc-900/50'
             }`}
             title="Toggle Theater Mode"
           >
             {isTheaterMode ? <Minimize2 className="w-3.5 h-3.5" /> : <Maximize2 className="w-3.5 h-3.5" />}
-            <span className="hidden sm:inline">{isTheaterMode ? 'Standard' : 'Theater'}</span>
+            <span className="hidden sm:inline">{isTheaterMode ? 'Standard View' : 'Theater View'}</span>
           </button>
         </div>
       </div>
@@ -213,11 +234,11 @@ export const VideoPlayerView = ({
           <div className="relative mb-4">
             {isAmbientOn && (
               <div 
-                className="absolute -inset-4 bg-gradient-to-r from-red-600/20 via-purple-600/20 to-blue-600/20 rounded-3xl blur-2xl -z-10 opacity-70 transition-all duration-700 pointer-events-none"
+                className="absolute -inset-4 bg-gradient-to-r from-red-600/20 via-purple-600/15 to-blue-600/20 rounded-3xl blur-2xl -z-10 opacity-70 transition-all duration-700 pointer-events-none"
               />
             )}
             
-            <div className="relative aspect-video w-full rounded-2xl overflow-hidden bg-black shadow-2xl border border-zinc-800">
+            <div className="relative aspect-video w-full rounded-2xl overflow-hidden bg-black shadow-2xl border border-white/[0.08]">
               <iframe
                 src={embedUrl}
                 title={currentVideoDetails.title}
@@ -234,7 +255,7 @@ export const VideoPlayerView = ({
           </h1>
 
           {/* Channel Bar & Action Buttons */}
-          <div className="flex flex-wrap items-center justify-between gap-4 py-2 border-b border-zinc-800/80 mb-4">
+          <div className="flex flex-wrap items-center justify-between gap-4 py-2 border-b border-white/[0.08] mb-4">
             {/* Channel Info */}
             <div className="flex items-center gap-3">
               <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-red-600 to-amber-500 flex items-center justify-center font-bold text-white text-base shadow-md">
@@ -328,7 +349,7 @@ export const VideoPlayerView = ({
           </div>
 
           {/* Expandable Description Box */}
-          <div className="bg-zinc-900/60 hover:bg-zinc-900/80 border border-zinc-800/80 rounded-2xl p-4 transition-colors mb-6 text-sm">
+          <div className="bg-zinc-900/60 hover:bg-zinc-900/80 border border-white/[0.08] rounded-2xl p-4 transition-colors mb-6 text-sm">
             <div className="flex flex-wrap items-center gap-3 font-semibold text-zinc-200 mb-2">
               <span>{formatViews(currentVideoDetails.viewCount)}</span>
               <span>•</span>
@@ -363,7 +384,7 @@ export const VideoPlayerView = ({
           </div>
 
           {/* Comments Section */}
-          <div className="border-t border-zinc-800/80 pt-6">
+          <div className="border-t border-white/[0.08] pt-6">
             <div className="flex items-center gap-3 mb-6">
               <MessageSquare className="w-5 h-5 text-red-500" />
               <h2 className="text-lg font-bold text-zinc-100">
@@ -384,7 +405,7 @@ export const VideoPlayerView = ({
                   type="text"
                   value={newCommentText}
                   onChange={(e) => setNewCommentText(e.target.value)}
-                  placeholder="Add a comment on UsTube..."
+                  placeholder="Add a comment on ImmonkeiTube..."
                   className="w-full bg-transparent border-b border-zinc-700 focus:border-red-500 py-1.5 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none transition-colors"
                 />
                 <div className="flex justify-end gap-2">
@@ -392,7 +413,7 @@ export const VideoPlayerView = ({
                     <button
                       type="button"
                       onClick={() => setNewCommentText('')}
-                      className="px-3 py-1.5 text-xs text-zinc-400 hover:text-zinc-200 rounded-lg hover:bg-zinc-800 transition-colors"
+                      className="px-3 py-1.5 text-xs text-zinc-400 hover:text-zinc-200 rounded-lg hover:bg-zinc-800 transition-colors cursor-pointer"
                     >
                       Cancel
                     </button>
@@ -400,9 +421,9 @@ export const VideoPlayerView = ({
                   <button
                     type="submit"
                     disabled={!newCommentText.trim()}
-                    className={`flex items-center gap-1 px-4 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                    className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold transition-all ${
                       newCommentText.trim()
-                        ? 'bg-red-600 hover:bg-red-500 text-white cursor-pointer shadow-md'
+                        ? 'bg-red-600 hover:bg-red-500 text-white cursor-pointer shadow-md shadow-red-600/20'
                         : 'bg-zinc-800 text-zinc-500 cursor-not-allowed'
                     }`}
                   >
@@ -427,7 +448,7 @@ export const VideoPlayerView = ({
                 ))}
               </div>
             ) : comments.length === 0 ? (
-              <div className="p-8 text-center bg-zinc-900/30 rounded-2xl border border-zinc-800/60">
+              <div className="p-8 text-center bg-zinc-900/30 rounded-2xl border border-white/[0.06]">
                 <p className="text-sm text-zinc-400">
                   Comments are disabled or none have been loaded yet for this video.
                 </p>
@@ -513,7 +534,7 @@ export const VideoPlayerView = ({
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                       />
                       {item.duration && (
-                        <span className="absolute bottom-1 right-1 text-[10px] font-semibold px-1.5 py-0.5 rounded bg-black/80 text-zinc-100">
+                        <span className="absolute bottom-1 right-1 text-[10px] font-semibold px-1.5 py-0.5 rounded bg-black/80 text-zinc-100 font-mono">
                           {item.duration}
                         </span>
                       )}
