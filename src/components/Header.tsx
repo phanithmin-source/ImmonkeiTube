@@ -94,9 +94,9 @@ export const Header = ({
             {/* Mascot Icon Container */}
             <div className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-blue-50 to-zinc-100 dark:from-zinc-800 dark:to-zinc-900 border border-blue-500/30 p-0.5 shadow-2xs group-hover:border-blue-500/70 group-hover:shadow-xs group-hover:scale-105 transition-all duration-200 flex items-center justify-center overflow-hidden">
               <img
-                src="/assets/immonkeitube-logo.webp"
+                src="/assets/immonkeitube-logo.png"
                 alt="ImmonkeiTube Logo"
-                className="w-full h-full object-contain scale-120 group-hover:scale-125 transition-transform duration-200"
+                className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-200"
               />
             </div>
           </button>

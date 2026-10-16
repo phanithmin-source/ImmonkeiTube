@@ -332,9 +332,9 @@ export function App() {
                   <div className="flex items-center gap-3 sm:gap-4 flex-1">
                     <div className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-blue-50 to-zinc-100 dark:from-zinc-800 dark:to-zinc-900 border border-blue-500/30 p-0.5 shadow-2xs shrink-0 flex items-center justify-center overflow-hidden">
                       <img
-                        src="/assets/immonkeitube-logo.webp"
+                        src="/assets/immonkeitube-logo.png"
                         alt="ImmonkeiTube Mascot"
-                        className="w-full h-full object-contain scale-120"
+                        className="w-full h-full object-contain"
                       />
                     </div>
 
@@ -465,7 +465,7 @@ export function App() {
               <div className="py-16 text-center space-y-3">
                 <div className="w-14 h-14 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-white/[0.08] flex items-center justify-center mx-auto overflow-hidden shadow-sm">
                   <img
-                    src="/assets/immonkeitube-logo.webp"
+                    src="/assets/immonkeitube-logo.png"
                     alt="ImmonkeiTube"
                     className="w-10 h-10 object-contain"
                   />
@@ -510,9 +510,9 @@ export function App() {
           <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
             <div className="w-5 h-5 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-blue-500/30 flex items-center justify-center overflow-hidden shrink-0">
               <img
-                src="/assets/immonkeitube-logo.webp"
+                src="/assets/immonkeitube-logo.png"
                 alt="ImmonkeiTube"
-                className="w-full h-full object-contain scale-125"
+                className="w-full h-full object-contain"
               />
             </div>
             <span className="font-bold text-zinc-800 dark:text-zinc-300">
