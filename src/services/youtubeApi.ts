@@ -365,5 +365,277 @@ export const FALLBACK_VIDEOS: VideoItem[] = [
     likeCount: '7800000',
     commentCount: '490000',
     tags: ['Lo-Fi', 'Tech', 'Coding', 'Study', 'Chill']
+  },
+  {
+    id: '951iFh0Y4n4',
+    title: 'VannDa - Solo (Official Music Video)',
+    description: 'Official music video for "Solo" by VannDa. Inspiring Cambodian hip-hop and storytelling.',
+    channelTitle: 'Baramey Production',
+    publishedAt: '2020-11-20T12:00:00Z',
+    thumbnails: {
+      high: { url: 'https://i.ytimg.com/vi/951iFh0Y4n4/hqdefault.jpg' },
+      maxres: { url: 'https://i.ytimg.com/vi/951iFh0Y4n4/maxresdefault.jpg' }
+    },
+    duration: '3:55',
+    viewCount: '48000000',
+    likeCount: '890000',
+    commentCount: '42000',
+    tags: ['Khmer Song', 'VannDa', 'Solo', 'Baramey', 'Cambodia']
+  },
+  {
+    id: 'd0kQ_oH1Y_A',
+    title: 'VannDa - Catch Me If You Can (Official Music Video)',
+    description: 'Official music video for "Catch Me If You Can" by VannDa. High-energy Khmer hip-hop production.',
+    channelTitle: 'Baramey Production',
+    publishedAt: '2022-03-18T12:00:00Z',
+    thumbnails: {
+      high: { url: 'https://i.ytimg.com/vi/d0kQ_oH1Y_A/hqdefault.jpg' },
+      maxres: { url: 'https://i.ytimg.com/vi/d0kQ_oH1Y_A/maxresdefault.jpg' }
+    },
+    duration: '3:15',
+    viewCount: '32000000',
+    likeCount: '620000',
+    commentCount: '28000',
+    tags: ['Khmer Song', 'VannDa', 'Baramey', 'Cambodia', 'Rap']
+  },
+  {
+    id: 't97l3vQj-O0',
+    title: 'Laura Mam - Yuvachon Khmer (Official Video)',
+    description: 'Laura Mam celebrating the youth and modern spirit of Cambodia.',
+    channelTitle: 'Laura Mam',
+    publishedAt: '2019-10-15T12:00:00Z',
+    thumbnails: {
+      high: { url: 'https://i.ytimg.com/vi/t97l3vQj-O0/hqdefault.jpg' },
+      maxres: { url: 'https://i.ytimg.com/vi/t97l3vQj-O0/maxresdefault.jpg' }
+    },
+    duration: '4:10',
+    viewCount: '12000000',
+    likeCount: '210000',
+    commentCount: '9800',
+    tags: ['Khmer Song', 'Laura Mam', 'Cambodia', 'Original Music']
+  },
+  {
+    id: 'p2sUeN6z2hA',
+    title: 'Tena - Monus L’or (Official MV)',
+    description: 'Heartfelt Khmer romantic ballad by Tena.',
+    channelTitle: 'Tena Official',
+    publishedAt: '2021-07-10T12:00:00Z',
+    thumbnails: {
+      high: { url: 'https://i.ytimg.com/vi/p2sUeN6z2hA/hqdefault.jpg' },
+      maxres: { url: 'https://i.ytimg.com/vi/p2sUeN6z2hA/maxresdefault.jpg' }
+    },
+    duration: '4:42',
+    viewCount: '28000000',
+    likeCount: '490000',
+    commentCount: '19000',
+    tags: ['Khmer Song', 'Tena', 'Cambodia', 'Romantic', 'Ballad']
+  },
+  {
+    id: 'uR5QZ_z0JcE',
+    title: 'Suly Pheng - Kbach (Official Audio)',
+    description: 'Acoustic and mellow Khmer indie pop by Suly Pheng.',
+    channelTitle: 'Suly Pheng',
+    publishedAt: '2022-09-05T12:00:00Z',
+    thumbnails: {
+      high: { url: 'https://i.ytimg.com/vi/uR5QZ_z0JcE/hqdefault.jpg' },
+      maxres: { url: 'https://i.ytimg.com/vi/uR5QZ_z0JcE/maxresdefault.jpg' }
+    },
+    duration: '3:48',
+    viewCount: '18500000',
+    likeCount: '340000',
+    commentCount: '12000',
+    tags: ['Khmer Song', 'Suly Pheng', 'Acoustic', 'Indie']
+  },
+  {
+    id: 'yV78V6E-Y04',
+    title: 'd4vd - Here With Me (Official Music Video)',
+    description: 'The official music video for "Here With Me" by d4vd. Nostalgic longing and romantic yearning.',
+    channelTitle: 'd4vd',
+    publishedAt: '2022-11-30T16:00:00Z',
+    thumbnails: {
+      high: { url: 'https://i.ytimg.com/vi/yV78V6E-Y04/hqdefault.jpg' },
+      maxres: { url: 'https://i.ytimg.com/vi/yV78V6E-Y04/maxresdefault.jpg' }
+    },
+    duration: '4:02',
+    viewCount: '198000000',
+    likeCount: '3200000',
+    commentCount: '45000',
+    tags: ['Yearning', 'd4vd', 'Romantic', 'Ballad', 'Love']
+  },
+  {
+    id: 'qU7r3E_f_qE',
+    title: 'd4vd - Romantic Homicide (Official Music Video)',
+    description: 'Melancholic heartbreak ballad by d4vd.',
+    channelTitle: 'd4vd',
+    publishedAt: '2022-09-08T16:00:00Z',
+    thumbnails: {
+      high: { url: 'https://i.ytimg.com/vi/qU7r3E_f_qE/hqdefault.jpg' },
+      maxres: { url: 'https://i.ytimg.com/vi/qU7r3E_f_qE/maxresdefault.jpg' }
+    },
+    duration: '2:12',
+    viewCount: '175000000',
+    likeCount: '2900000',
+    commentCount: '38000',
+    tags: ['Yearning', 'd4vd', 'Heartbreak', 'Sad', 'Melancholic']
+  },
+  {
+    id: 'lSD_L-xic9o',
+    title: 'Laufey - From The Start (Official Music Video)',
+    description: 'Jazz-infused modern love song and yearning story by Laufey.',
+    channelTitle: 'Laufey',
+    publishedAt: '2023-08-23T16:00:00Z',
+    thumbnails: {
+      high: { url: 'https://i.ytimg.com/vi/lSD_L-xic9o/hqdefault.jpg' },
+      maxres: { url: 'https://i.ytimg.com/vi/lSD_L-xic9o/maxresdefault.jpg' }
+    },
+    duration: '2:50',
+    viewCount: '85000000',
+    likeCount: '1700000',
+    commentCount: '25000',
+    tags: ['Yearning', 'Laufey', 'Jazz Pop', 'Acoustic', 'Love']
+  },
+  {
+    id: 'KtlgYxa6BMU',
+    title: 'Lord Huron - The Night We Met (Official Audio)',
+    description: 'Hauntingly beautiful yearning indie folk track by Lord Huron.',
+    channelTitle: 'Lord Huron',
+    publishedAt: '2015-04-07T12:00:00Z',
+    thumbnails: {
+      high: { url: 'https://i.ytimg.com/vi/KtlgYxa6BMU/hqdefault.jpg' },
+      maxres: { url: 'https://i.ytimg.com/vi/KtlgYxa6BMU/maxresdefault.jpg' }
+    },
+    duration: '3:28',
+    viewCount: '240000000',
+    likeCount: '3500000',
+    commentCount: '78000',
+    tags: ['Yearning', 'Lord Huron', 'Indie Folk', 'Nostalgia']
+  },
+  {
+    id: 'sElE_B4gy44',
+    title: 'Cigarettes After Sex - Apocalypse',
+    description: 'Dream pop yearning ballad with ambient reverb and poetic lyricism.',
+    channelTitle: 'Cigarettes After Sex',
+    publishedAt: '2017-03-21T16:00:00Z',
+    thumbnails: {
+      high: { url: 'https://i.ytimg.com/vi/sElE_B4gy44/hqdefault.jpg' },
+      maxres: { url: 'https://i.ytimg.com/vi/sElE_B4gy44/maxresdefault.jpg' }
+    },
+    duration: '4:51',
+    viewCount: '220000000',
+    likeCount: '3100000',
+    commentCount: '52000',
+    tags: ['Yearning', 'Dream Pop', 'Cigarettes After Sex', 'Ambient']
+  },
+  {
+    id: 'W8a4sU5u_kQ',
+    title: 'Ruth B. - Dandelions (Official Audio)',
+    description: 'Sweet yearning pop ballad about wishing and unconditional love.',
+    channelTitle: 'Ruth B.',
+    publishedAt: '2017-04-28T16:00:00Z',
+    thumbnails: {
+      high: { url: 'https://i.ytimg.com/vi/W8a4sU5u_kQ/hqdefault.jpg' },
+      maxres: { url: 'https://i.ytimg.com/vi/W8a4sU5u_kQ/maxresdefault.jpg' }
+    },
+    duration: '3:54',
+    viewCount: '310000000',
+    likeCount: '4800000',
+    commentCount: '65000',
+    tags: ['Yearning', 'Ruth B', 'Piano', 'Romantic', 'Pop']
+  },
+  {
+    id: 'FvOpPeKSf_4',
+    title: 'Joji - Glimpse of Us (Official Video)',
+    description: 'Emotional piano ballad capturing lingering memories and yearning by Joji.',
+    channelTitle: 'Joji',
+    publishedAt: '2022-06-10T16:00:00Z',
+    thumbnails: {
+      high: { url: 'https://i.ytimg.com/vi/FvOpPeKSf_4/hqdefault.jpg' },
+      maxres: { url: 'https://i.ytimg.com/vi/FvOpPeKSf_4/maxresdefault.jpg' }
+    },
+    duration: '3:53',
+    viewCount: '165000000',
+    likeCount: '2800000',
+    commentCount: '58000',
+    tags: ['Yearning', 'Joji', 'Piano', 'Heartbreak', 'Sad']
+  },
+  {
+    id: 'Sklc_2VQ49mM',
+    title: 'Next.js 14 in 100 Seconds',
+    description: 'Discover React Server Components, App Router, and full-stack performance in Next.js.',
+    channelTitle: 'Fireship',
+    publishedAt: '2023-11-01T17:00:00Z',
+    thumbnails: {
+      high: { url: 'https://i.ytimg.com/vi/Sklc_2VQ49mM/hqdefault.jpg' },
+      maxres: { url: 'https://i.ytimg.com/vi/Sklc_2VQ49mM/maxresdefault.jpg' }
+    },
+    duration: '2:18',
+    viewCount: '1420000',
+    likeCount: '78000',
+    commentCount: '1900',
+    tags: ['Tech', 'Next.js', 'React', 'Full Stack', 'Web Dev']
+  },
+  {
+    id: 'kCc8FmEb1nY',
+    title: 'Let\'s build GPT: from scratch, in code, spelled out',
+    description: 'Deep dive into building a Generative Pretrained Transformer with PyTorch by Andrej Karpathy.',
+    channelTitle: 'Andrej Karpathy',
+    publishedAt: '2023-01-17T18:00:00Z',
+    thumbnails: {
+      high: { url: 'https://i.ytimg.com/vi/kCc8FmEb1nY/hqdefault.jpg' },
+      maxres: { url: 'https://i.ytimg.com/vi/kCc8FmEb1nY/maxresdefault.jpg' }
+    },
+    duration: '1:56:22',
+    viewCount: '6200000',
+    likeCount: '310000',
+    commentCount: '14200',
+    tags: ['Tech', 'AI', 'GPT', 'Machine Learning', 'Python']
+  },
+  {
+    id: 'Qhaz363acWw',
+    title: '10 Modern CSS Tricks You Need To Know',
+    description: 'Level up your frontend styling with modern CSS properties, container queries, and animations.',
+    channelTitle: 'Fireship',
+    publishedAt: '2023-05-12T17:00:00Z',
+    thumbnails: {
+      high: { url: 'https://i.ytimg.com/vi/Qhaz363acWw/hqdefault.jpg' },
+      maxres: { url: 'https://i.ytimg.com/vi/Qhaz363acWw/maxresdefault.jpg' }
+    },
+    duration: '5:24',
+    viewCount: '1850000',
+    likeCount: '98000',
+    commentCount: '2400',
+    tags: ['Tech', 'CSS', 'Frontend', 'Design', 'Web Dev']
+  },
+  {
+    id: 'x7X9w_GIm1s',
+    title: 'Python in 100 Seconds',
+    description: 'Quick overview of Python programming, syntax, and libraries for data science & scripting.',
+    channelTitle: 'Fireship',
+    publishedAt: '2020-10-22T17:00:00Z',
+    thumbnails: {
+      high: { url: 'https://i.ytimg.com/vi/x7X9w_GIm1s/hqdefault.jpg' },
+      maxres: { url: 'https://i.ytimg.com/vi/x7X9w_GIm1s/maxresdefault.jpg' }
+    },
+    duration: '2:25',
+    viewCount: '3200000',
+    likeCount: '185000',
+    commentCount: '4200',
+    tags: ['Tech', 'Python', 'Programming', 'Backend']
+  },
+  {
+    id: 'm8Icp_Cid5o',
+    title: 'System Design Interview: A Step-By-Step Guide',
+    description: 'Master architecture diagrams, load balancing, caching, and scalable databases with ByteByteGo.',
+    channelTitle: 'ByteByteGo',
+    publishedAt: '2022-08-15T15:00:00Z',
+    thumbnails: {
+      high: { url: 'https://i.ytimg.com/vi/m8Icp_Cid5o/hqdefault.jpg' },
+      maxres: { url: 'https://i.ytimg.com/vi/m8Icp_Cid5o/maxresdefault.jpg' }
+    },
+    duration: '9:45',
+    viewCount: '2100000',
+    likeCount: '94000',
+    commentCount: '1850',
+    tags: ['Tech', 'System Design', 'Architecture', 'Software Engineering']
   }
 ];

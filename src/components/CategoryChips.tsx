@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { CATEGORIES } from '../constants/categories';
 import type { CategoryOption } from '../constants/categories';
@@ -13,6 +13,22 @@ export const CategoryChips = ({
   onSelectCategory,
 }: CategoryChipsProps) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  // Allow horizontal scrolling on mouse wheel
+  useEffect(() => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        e.preventDefault();
+        el.scrollBy({ left: e.deltaY * 1.5, behavior: 'auto' });
+      }
+    };
+
+    el.addEventListener('wheel', handleWheel, { passive: false });
+    return () => el.removeEventListener('wheel', handleWheel);
+  }, []);
 
   const handleScroll = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {

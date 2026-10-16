@@ -92,6 +92,12 @@ export function App() {
     }
   });
 
+  // Notice banner state
+  const [isNoticeDismissed, setIsNoticeDismissed] = useState(false);
+
+  // Pagination / infinite scroll state
+  const [visibleCount, setVisibleCount] = useState(16);
+
   // History & Saved state (with legacy key fallback)
   const [history, setHistory] = useState<VideoItem[]>(() => {
     try {
@@ -153,6 +159,47 @@ export function App() {
     }
   };
 
+  // Infinite scroll listener: load next page of videos as user scrolls near bottom
+  useEffect(() => {
+    const handleScroll = () => {
+      if (
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 500
+      ) {
+        setVisibleCount((prev) => (prev < videos.length ? prev + 8 : prev));
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [videos.length]);
+
+  // Helper to filter fallback library by category or query
+  const getFilteredFallback = (query?: string, category?: CategoryOption): VideoItem[] => {
+    if (query && query.trim()) {
+      const q = query.toLowerCase();
+      const filtered = FALLBACK_VIDEOS.filter((v) =>
+        v.title.toLowerCase().includes(q) ||
+        v.description.toLowerCase().includes(q) ||
+        v.channelTitle.toLowerCase().includes(q) ||
+        (v.tags && v.tags.some((t) => t.toLowerCase().includes(q)))
+      );
+      return filtered.length > 0 ? filtered : FALLBACK_VIDEOS;
+    }
+
+    if (category && category.id !== 'all') {
+      const catId = category.id.toLowerCase();
+      const catQuery = (category.query || '').toLowerCase();
+      const filtered = FALLBACK_VIDEOS.filter((v) => {
+        const matchCat = v.tags?.some((t) => t.toLowerCase().includes(catId) || catQuery.includes(t.toLowerCase()));
+        const matchTitle = v.title.toLowerCase().includes(catId) || v.title.toLowerCase().includes(catQuery);
+        return matchCat || matchTitle;
+      });
+      return filtered.length > 0 ? filtered : FALLBACK_VIDEOS;
+    }
+
+    return FALLBACK_VIDEOS;
+  };
+
   // Load videos based on category or search
   const loadVideos = useCallback(
     async (query?: string, category?: CategoryOption) => {
@@ -173,17 +220,21 @@ export function App() {
         }
 
         if (results.length === 0) {
-          setError('No videos found for this query. Try another keyword or category.');
+          setError('No videos found for this query. Displaying curated selection.');
+          const fallbackResults = getFilteredFallback(query, category);
+          setVideos(fallbackResults);
+          setIsUsingFallback(true);
         } else {
           setVideos(results);
         }
       } catch (err: any) {
-        console.error('Failed to load videos from YouTube API:', err);
-        const errorMessage = err?.message || 'Error communicating with YouTube API';
+        console.error('Failed to load videos from API:', err);
+        const errorMessage = err?.message || 'Error communicating with API';
         setError(errorMessage);
 
         // Fallback to offline curated list if quota exceeded or network blocked
-        setVideos(FALLBACK_VIDEOS);
+        const fallbackResults = getFilteredFallback(query, category);
+        setVideos(fallbackResults);
         setIsUsingFallback(true);
       } finally {
         setLoading(false);
@@ -243,6 +294,7 @@ export function App() {
   // Search handler
   const handleSearch = (query: string) => {
     setSearchQuery(query);
+    setVisibleCount(16);
     setCurrentVideo(null); // return to feed to view search results
     loadVideos(query, undefined);
   };
@@ -251,6 +303,7 @@ export function App() {
   const handleSelectCategory = (category: CategoryOption) => {
     setActiveCategory(category);
     setSearchQuery('');
+    setVisibleCount(16);
     setCurrentVideo(null);
     loadVideos(undefined, category);
   };
@@ -284,6 +337,7 @@ export function App() {
           setCurrentVideo(null);
           setSearchQuery('');
           setActiveCategory(CATEGORIES[0]);
+          setVisibleCount(16);
           loadVideos(undefined, CATEGORIES[0]);
         }}
         onOpenDirectUrl={() => setIsDirectUrlModalOpen(true)}
@@ -330,13 +384,11 @@ export function App() {
                 <div className="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-3.5 sm:gap-4">
                   {/* Left: Branding & Message */}
                   <div className="flex items-center gap-3 sm:gap-4 flex-1">
-                    <div className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-blue-50 to-zinc-100 dark:from-zinc-800 dark:to-zinc-900 border border-blue-500/30 p-0.5 shadow-2xs shrink-0 flex items-center justify-center overflow-hidden">
-                      <img
-                        src="/assets/immonkeitube-logo.png"
-                        alt="ImmonkeiTube Mascot"
-                        className="w-full h-full object-contain"
-                      />
-                    </div>
+                    <img
+                      src="/assets/immonkeitube-logo.png"
+                      alt="ImmonkeiTube Mascot"
+                      className="w-11 h-11 sm:w-12 sm:h-12 object-contain shrink-0 drop-shadow-xs"
+                    />
 
                     <div className="space-y-1">
                       <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
@@ -389,7 +441,7 @@ export function App() {
             )}
 
             {/* API Notice / Quota Banner */}
-            {isUsingFallback && (
+            {isUsingFallback && !isNoticeDismissed && (
               <div className="mb-4 p-3 sm:p-3.5 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-300/80 dark:border-amber-600/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 text-amber-900 dark:text-amber-200">
                 <div className="flex items-start sm:items-center gap-2.5">
                   <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5 sm:mt-0" />
@@ -400,7 +452,7 @@ export function App() {
                     {error || 'Displaying curated library. Connect your own Google API key for unrestricted catalog access.'}
                   </div>
                 </div>
-                <div className="flex items-center gap-2 shrink-0">
+                <div className="flex items-center gap-2 shrink-0 self-end sm:self-auto">
                   <button
                     onClick={() => setIsApiKeyModalOpen(true)}
                     className="px-3 py-1 rounded-lg bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold transition-colors cursor-pointer shadow-xs"
@@ -412,6 +464,14 @@ export function App() {
                     className="px-3 py-1 rounded-lg bg-white dark:bg-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-200 text-xs font-medium transition-colors cursor-pointer border border-zinc-300 dark:border-zinc-700"
                   >
                     Retry
+                  </button>
+                  <button
+                    onClick={() => setIsNoticeDismissed(true)}
+                    className="p-1 text-amber-600 hover:text-amber-900 dark:text-amber-300 dark:hover:text-white rounded-md hover:bg-amber-100 dark:hover:bg-amber-900/50 transition-colors cursor-pointer"
+                    title="Dismiss notice"
+                    aria-label="Dismiss notice"
+                  >
+                    <X className="w-4 h-4" />
                   </button>
                 </div>
               </div>
@@ -488,17 +548,30 @@ export function App() {
                 </button>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5 sm:gap-4.5">
-                {videos.map((video) => (
-                  <VideoCard
-                    key={video.id}
-                    video={video}
-                    onSelect={handleSelectVideo}
-                    isSaved={saved.some((s) => s.id === video.id)}
-                    onToggleSave={handleToggleSave}
-                  />
-                ))}
-              </div>
+              <>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5 sm:gap-4.5">
+                  {videos.slice(0, visibleCount).map((video) => (
+                    <VideoCard
+                      key={video.id}
+                      video={video}
+                      onSelect={handleSelectVideo}
+                      isSaved={saved.some((s) => s.id === video.id)}
+                      onToggleSave={handleToggleSave}
+                    />
+                  ))}
+                </div>
+
+                {visibleCount < videos.length && (
+                  <div className="pt-6 pb-2 text-center">
+                    <button
+                      onClick={() => setVisibleCount((prev) => prev + 8)}
+                      className="px-5 py-2.5 rounded-xl bg-white hover:bg-zinc-100 dark:bg-zinc-900 dark:hover:bg-zinc-800 text-xs sm:text-sm font-semibold text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-white/[0.08] transition-all cursor-pointer shadow-xs hover:scale-[1.02]"
+                    >
+                      Load More Videos ({videos.length - visibleCount} remaining)
+                    </button>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </main>
@@ -508,13 +581,11 @@ export function App() {
       <footer className="border-t border-zinc-200 dark:border-white/[0.08] bg-white dark:bg-zinc-950 py-4 text-xs text-zinc-500 dark:text-zinc-400 transition-colors">
         <div className="max-w-7xl mx-auto px-3 sm:px-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-            <div className="w-5 h-5 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-blue-500/30 flex items-center justify-center overflow-hidden shrink-0">
-              <img
-                src="/assets/immonkeitube-logo.png"
-                alt="ImmonkeiTube"
-                className="w-full h-full object-contain"
-              />
-            </div>
+            <img
+              src="/assets/immonkeitube-logo.png"
+              alt="ImmonkeiTube"
+              className="w-5 h-5 sm:w-5.5 sm:h-5.5 object-contain shrink-0"
+            />
             <span className="font-bold text-zinc-800 dark:text-zinc-300">
               Immonkei<span className="text-blue-600 dark:text-blue-500">Tube</span>
             </span>
