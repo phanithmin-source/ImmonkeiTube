@@ -84,7 +84,7 @@ export const ApiKeyModal = ({
       if (res.ok) {
         setTestResult({
           success: true,
-          message: `API Key validated! Connected to Google YouTube Data API v3.`,
+          message: `API Key validated successfully!`,
           latency: elapsed,
         });
       } else {
@@ -114,7 +114,7 @@ export const ApiKeyModal = ({
     }
     setStoredApiKey(cleanKey);
     onApiKeyUpdated(cleanKey);
-    onShowToast('YouTube API Key saved successfully!', 'success');
+    onShowToast('API Key saved successfully!', 'success');
     onClose();
   };
 
@@ -142,7 +142,7 @@ export const ApiKeyModal = ({
             </div>
             <div>
               <h3 className="font-bold text-sm sm:text-base text-zinc-900 dark:text-zinc-100">
-                YouTube Data API v3 Key
+                Custom API Key
               </h3>
               <p className="text-[11px] text-zinc-500 dark:text-zinc-400">
                 Connect your credentials for unrestricted streaming
@@ -168,7 +168,7 @@ export const ApiKeyModal = ({
             </div>
             <ol className="list-decimal list-inside space-y-0.5 text-zinc-500 dark:text-zinc-400 text-[11px] leading-relaxed pl-1">
               <li>Open Google Cloud Console & create a project</li>
-              <li>Enable "YouTube Data API v3"</li>
+              <li>Enable "YouTube Data API"</li>
               <li>Create Credentials &rarr; API Key and paste it below</li>
             </ol>
             <a

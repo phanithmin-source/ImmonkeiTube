@@ -83,35 +83,21 @@ export const Header = ({
   return (
     <header className="sticky top-0 z-40 bg-white/90 dark:bg-zinc-950/90 backdrop-blur-xl border-b border-zinc-200/80 dark:border-white/[0.08] px-3 sm:px-5 py-2 transition-colors duration-150">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-2.5 sm:gap-4">
-        {/* Left: Brand Logo & Title */}
+        {/* Left: Brand Logo Only */}
         <div className="flex items-center gap-2 shrink-0">
           <button
             onClick={onHomeClick}
-            className="flex items-center gap-2.5 group cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 rounded-xl p-1 -ml-1 transition-all"
-            title="Go to ImmonkeiTube Home"
+            className="flex items-center group cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 rounded-xl p-1 -ml-1 transition-all"
+            title="ImmonkeiTube Home"
+            aria-label="ImmonkeiTube Home"
           >
             {/* Mascot Icon Container */}
-            <div className="relative w-8 h-8 sm:w-8.5 sm:h-8.5 rounded-xl bg-gradient-to-br from-blue-50 to-zinc-100 dark:from-zinc-800 dark:to-zinc-900 border border-blue-500/30 p-0.5 shadow-2xs group-hover:border-blue-500/70 group-hover:shadow-xs group-hover:scale-105 transition-all duration-200 flex items-center justify-center overflow-hidden">
+            <div className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-blue-50 to-zinc-100 dark:from-zinc-800 dark:to-zinc-900 border border-blue-500/30 p-0.5 shadow-2xs group-hover:border-blue-500/70 group-hover:shadow-xs group-hover:scale-105 transition-all duration-200 flex items-center justify-center overflow-hidden">
               <img
                 src="/assets/immonkeitube-logo.webp"
                 alt="ImmonkeiTube Logo"
                 className="w-full h-full object-contain scale-120 group-hover:scale-125 transition-transform duration-200"
               />
-            </div>
-
-            {/* Typography */}
-            <div className="flex flex-col text-left">
-              <div className="flex items-center gap-1.5">
-                <span className="font-black text-base sm:text-lg tracking-tight text-zinc-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                  Immonkei<span className="text-blue-600 dark:text-blue-500">Tube</span>
-                </span>
-                <span className="text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.2 rounded-full bg-blue-50 text-blue-600 dark:bg-blue-950/80 dark:text-blue-400 border border-blue-200 dark:border-blue-800/60 hidden sm:inline-block">
-                  v3
-                </span>
-              </div>
-              <span className="text-[10px] font-medium text-zinc-500 dark:text-zinc-400 hidden sm:inline -mt-0.5 tracking-wide">
-                Khmer • Yearning • Tech
-              </span>
             </div>
           </button>
         </div>
@@ -172,18 +158,6 @@ export const Header = ({
             <Search className="w-4 h-4" />
           </button>
 
-          {/* Portfolio Credit Badge */}
-          <a
-            href="https://devfolio-immonkei.vercel.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden xl:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50/80 hover:bg-blue-100/80 dark:bg-blue-950/50 dark:hover:bg-blue-900/60 border border-blue-200 dark:border-blue-800/60 text-[11px] text-blue-900 dark:text-blue-200 transition-all cursor-pointer shadow-2xs group"
-            title="Visit Immonkei Portfolio"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
-            <span>By <strong className="text-blue-700 dark:text-blue-300 group-hover:underline font-semibold transition-colors">Immonkei</strong></span>
-          </a>
-
           {/* Paste URL / Video ID Button */}
           <button
             onClick={onOpenDirectUrl}
@@ -229,8 +203,8 @@ export const Header = ({
           <button
             onClick={onOpenApiKeyModal}
             className="relative flex items-center p-2 text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800/80 rounded-full transition-colors cursor-pointer"
-            title={apiKeyValid ? 'YouTube Data API connected' : 'YouTube Data API key needed / demo mode'}
-            aria-label="Configure YouTube API Key"
+            title={apiKeyValid ? 'API connected' : 'API key needed / demo mode'}
+            aria-label="Configure API Key"
           >
             <Key className="w-4 h-4" />
             <span

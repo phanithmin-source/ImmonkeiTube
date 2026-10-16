@@ -343,19 +343,6 @@ export function App() {
                         <span className="text-base sm:text-lg font-black tracking-tight text-zinc-900 dark:text-white">
                           Welcome to Immonkei<span className="text-blue-600 dark:text-blue-500">Tube</span>
                         </span>
-                        <span className="text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.2 rounded-full bg-blue-50 dark:bg-blue-950/80 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800/60">
-                          v3 API
-                        </span>
-                        <a
-                          href="https://devfolio-immonkei.vercel.app/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-blue-50 hover:bg-blue-100/80 dark:bg-blue-950/50 dark:hover:bg-blue-900/60 border border-blue-200 dark:border-blue-800/60 text-blue-900 dark:text-blue-200 transition-all text-[10px] sm:text-[11px] font-medium group"
-                          title="Visit Developer Portfolio"
-                        >
-                          <Sparkles className="w-2.5 h-2.5 text-blue-600 dark:text-blue-400 group-hover:rotate-12 transition-transform" />
-                          <span>By <strong className="text-blue-700 dark:text-blue-300 group-hover:underline font-semibold">Immonkei</strong></span>
-                        </a>
                       </div>
                       <p className="text-xs text-zinc-600 dark:text-zinc-300 max-w-xl leading-relaxed">
                         Curated stream for <strong>Khmer Songs</strong>, <strong>Yearning Ballads</strong>, and <strong>Tech & AI</strong> with continuous autoplay and custom Google API key connectivity.
@@ -408,7 +395,7 @@ export function App() {
                   <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5 sm:mt-0" />
                   <div className="text-xs">
                     <span className="font-bold text-amber-950 dark:text-amber-100">
-                      YouTube API Notice:
+                      Notice:
                     </span>{' '}
                     {error || 'Displaying curated library. Connect your own Google API key for unrestricted catalog access.'}
                   </div>
@@ -531,8 +518,6 @@ export function App() {
             <span className="font-bold text-zinc-800 dark:text-zinc-300">
               Immonkei<span className="text-blue-600 dark:text-blue-500">Tube</span>
             </span>
-            <span className="text-zinc-400 dark:text-zinc-600 hidden sm:inline">•</span>
-            <span className="text-zinc-500 dark:text-zinc-400 text-[11px]">YouTube API v3</span>
             <span className="text-zinc-400 dark:text-zinc-600 hidden sm:inline">•</span>
             <a
               href="https://devfolio-immonkei.vercel.app/"
