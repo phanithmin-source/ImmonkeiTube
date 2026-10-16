@@ -1,16 +1,13 @@
 import type { ReactNode } from 'react';
 import { 
-  Flame, 
   Music, 
-  Gamepad2, 
   Cpu, 
-  Newspaper, 
   Headphones, 
-  Film, 
   Sparkles, 
-  Trophy, 
-  Compass,
-  Radio,
+  Compass, 
+  Radio, 
+  Heart,
+  Code2,
   Tv
 } from 'lucide-react';
 
@@ -23,15 +20,12 @@ export interface CategoryOption {
 
 export const CATEGORIES: CategoryOption[] = [
   { id: 'all', label: 'All', icon: <Compass className="w-3.5 h-3.5" /> },
-  { id: 'trending', label: 'Trending', icon: <Flame className="w-3.5 h-3.5 text-orange-400" /> },
-  { id: 'music', label: 'Music', query: 'official music video hits 4k', icon: <Music className="w-3.5 h-3.5 text-pink-400" /> },
-  { id: 'gaming', label: 'Gaming', query: 'gameplay walkthrough trailer 60fps', icon: <Gamepad2 className="w-3.5 h-3.5 text-emerald-400" /> },
-  { id: 'tech', label: 'Tech & AI', query: 'artificial intelligence tech review', icon: <Cpu className="w-3.5 h-3.5 text-sky-400" /> },
-  { id: 'lofi', label: 'Lo-Fi Chill', query: 'lofi hip hop relaxing study beats', icon: <Headphones className="w-3.5 h-3.5 text-purple-400" /> },
-  { id: 'live', label: 'Live Streams', query: 'live stream broadcasting now', icon: <Radio className="w-3.5 h-3.5 text-red-500" /> },
-  { id: 'trailers', label: 'Trailers & Cinema', query: 'official movie trailer 4k', icon: <Film className="w-3.5 h-3.5 text-amber-400" /> },
-  { id: 'shows', label: 'Podcasts & Shows', query: 'popular podcast episode talk show', icon: <Tv className="w-3.5 h-3.5 text-indigo-400" /> },
-  { id: 'news', label: 'World News', query: 'global news broadcast breaking', icon: <Newspaper className="w-3.5 h-3.5 text-blue-400" /> },
-  { id: 'sports', label: 'Sports', query: 'sports highlights champions hd', icon: <Trophy className="w-3.5 h-3.5 text-yellow-400" /> },
-  { id: 'nature', label: 'Nature 4K', query: 'nature documentary 4k hdr 60fps', icon: <Sparkles className="w-3.5 h-3.5 text-teal-400" /> },
+  { id: 'khmer_songs', label: 'Khmer Songs', query: 'khmer songs official mv original audio', icon: <Music className="w-3.5 h-3.5 text-blue-500" /> },
+  { id: 'yearning_songs', label: 'Yearning Songs', query: 'yearning songs nostalgic emotional acoustic ballad', icon: <Heart className="w-3.5 h-3.5 text-indigo-400" /> },
+  { id: 'tech_coding', label: 'Tech & Coding', query: 'programming coding software development tech review', icon: <Cpu className="w-3.5 h-3.5 text-sky-400" /> },
+  { id: 'khmer_acoustic', label: 'Khmer Chill', query: 'khmer acoustic chill songs guitar cover', icon: <Headphones className="w-3.5 h-3.5 text-teal-400" /> },
+  { id: 'ai_future', label: 'AI & Engineering', query: 'artificial intelligence full stack software tools', icon: <Code2 className="w-3.5 h-3.5 text-blue-400" /> },
+  { id: 'khmer_classics', label: 'Khmer Classics', query: 'sinn sisamouth ros sereysothea khmer golden oldies', icon: <Radio className="w-3.5 h-3.5 text-amber-400" /> },
+  { id: 'yearning_indie', label: 'Yearning Indie', query: 'melancholic indie bedroom pop yearning hits', icon: <Sparkles className="w-3.5 h-3.5 text-purple-400" /> },
+  { id: 'lofi_code', label: 'Lo-Fi Code', query: 'lofi hip hop relaxing study beats coding', icon: <Tv className="w-3.5 h-3.5 text-cyan-400" /> },
 ];

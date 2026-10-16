@@ -236,37 +236,39 @@ function mapApiItemToVideoItem(item: any): VideoItem {
   };
 }
 
-// Fallback curated videos when API quota is exhausted or offline
+// Fallback curated videos focused on Khmer Songs, Yearning Songs, and Tech & AI
 export const FALLBACK_VIDEOS: VideoItem[] = [
   {
-    id: 'dQw4w9WgXcQ',
-    title: 'Rick Astley - Never Gonna Give You Up (Official Music Video)',
-    description: 'The official video for "Never Gonna Give You Up" by Rick Astley. Remastered in 4K.',
-    channelTitle: 'Rick Astley',
-    publishedAt: '2009-10-25T06:57:33Z',
+    id: '1g_O_7f_0u0',
+    title: 'VannDa - Time To Rise feat. Master Kong Nay (Official Music Video)',
+    description: 'Official music video for "Time To Rise" by VannDa featuring Master Kong Nay. Celebrating Cambodian heritage, traditional Chapei Dang Veng and modern music.',
+    channelTitle: 'Baramey Production',
+    publishedAt: '2021-03-28T12:00:00Z',
     thumbnails: {
-      high: { url: 'https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg' },
-      maxres: { url: 'https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg' }
+      high: { url: 'https://i.ytimg.com/vi/1g_O_7f_0u0/hqdefault.jpg' },
+      maxres: { url: 'https://i.ytimg.com/vi/1g_O_7f_0u0/maxresdefault.jpg' }
     },
-    duration: '3:33',
-    viewCount: '1550230000',
-    likeCount: '17200000',
-    commentCount: '2430000'
+    duration: '4:29',
+    viewCount: '135000000',
+    likeCount: '2150000',
+    commentCount: '110000',
+    tags: ['Khmer Song', 'VannDa', 'Master Kong Nay', 'Baramey', 'Cambodia']
   },
   {
-    id: 'jfKfPfyJRdk',
-    title: 'lofi hip hop radio - beats to relax/study to ☕️',
-    description: 'Welcome to the Lofi Girl stream! Peaceful music for studying, working, relaxing and chilling.',
-    channelTitle: 'Lofi Girl',
-    publishedAt: '2024-01-01T00:00:00Z',
+    id: 'GxldQ9GyXfY',
+    title: 'Stephen Sanchez - Until I Found You (Official Video)',
+    description: 'The official music video for "Until I Found You" by Stephen Sanchez. Timeless yearning romantic ballad.',
+    channelTitle: 'StephenSanchezVEVO',
+    publishedAt: '2022-06-29T16:00:00Z',
     thumbnails: {
-      high: { url: 'https://i.ytimg.com/vi/jfKfPfyJRdk/hqdefault.jpg' },
-      maxres: { url: 'https://i.ytimg.com/vi/jfKfPfyJRdk/maxresdefault.jpg' }
+      high: { url: 'https://i.ytimg.com/vi/GxldQ9GyXfY/hqdefault.jpg' },
+      maxres: { url: 'https://i.ytimg.com/vi/GxldQ9GyXfY/maxresdefault.jpg' }
     },
-    duration: 'Live',
-    viewCount: '68500000',
-    likeCount: '7800000',
-    commentCount: '490000'
+    duration: '3:04',
+    viewCount: '385000000',
+    likeCount: '4600000',
+    commentCount: '62000',
+    tags: ['Yearning', 'Romantic', 'Stephen Sanchez', 'Acoustic', 'Ballad']
   },
   {
     id: 'M576WGiDBdQ',
@@ -281,27 +283,29 @@ export const FALLBACK_VIDEOS: VideoItem[] = [
     duration: '2:24',
     viewCount: '1940000',
     likeCount: '112000',
-    commentCount: '3800'
+    commentCount: '3800',
+    tags: ['Tech', 'React', 'Frontend', 'JavaScript', 'Web Dev']
   },
   {
-    id: 'LXb3EKWsInQ',
-    title: 'COSTA RICA IN 4K 60fps HDR (ULTRA HD)',
-    description: 'Costa Rica 4K video featuring exotic wildlife, rainforests, beaches, and lush biodiversity.',
-    channelTitle: 'Jacob + Katie Schwarz',
-    publishedAt: '2015-11-20T12:00:00Z',
+    id: '2fZk_fJqX_A',
+    title: 'Conan Gray - Heather (Official Music Video)',
+    description: 'Official music video for "Heather" by Conan Gray. Melancholic yearning and emotional indie pop ballad.',
+    channelTitle: 'Conan Gray',
+    publishedAt: '2020-08-20T17:00:00Z',
     thumbnails: {
-      high: { url: 'https://i.ytimg.com/vi/LXb3EKWsInQ/hqdefault.jpg' },
-      maxres: { url: 'https://i.ytimg.com/vi/LXb3EKWsInQ/maxresdefault.jpg' }
+      high: { url: 'https://i.ytimg.com/vi/2fZk_fJqX_A/hqdefault.jpg' },
+      maxres: { url: 'https://i.ytimg.com/vi/2fZk_fJqX_A/maxresdefault.jpg' }
     },
-    duration: '5:14',
-    viewCount: '115400000',
-    likeCount: '1100000',
-    commentCount: '34200'
+    duration: '3:24',
+    viewCount: '215000000',
+    likeCount: '3750000',
+    commentCount: '89000',
+    tags: ['Yearning', 'Heather', 'Conan Gray', 'Melancholic', 'Indie Pop']
   },
   {
     id: '7nosL3sHq0Q',
     title: 'Build and Deploy a Full Stack AI Application',
-    description: 'Step-by-step masterclass to building a full stack web app with modern AI APIs and Vite.',
+    description: 'Step-by-step masterclass to building a full stack web app with modern AI APIs, TypeScript, and Vite.',
     channelTitle: 'JavaScript Mastery',
     publishedAt: '2024-06-15T14:30:00Z',
     thumbnails: {
@@ -311,21 +315,55 @@ export const FALLBACK_VIDEOS: VideoItem[] = [
     duration: '42:15',
     viewCount: '480000',
     likeCount: '32000',
-    commentCount: '1450'
+    commentCount: '1450',
+    tags: ['Tech', 'Full Stack', 'AI', 'TypeScript', 'Web Dev']
   },
   {
-    id: 'fJ9rUzIMcZQ',
-    title: 'Queen – Bohemian Rhapsody (Official Video Remastered)',
-    description: 'Taken from A Night At The Opera, 1975. The official music video for Bohemian Rhapsody.',
-    channelTitle: 'Queen Official',
-    publishedAt: '2008-08-01T15:20:00Z',
+    id: 'zQnBQ4tB3ZA',
+    title: 'TypeScript in 100 Seconds',
+    description: 'Learn the fundamentals of TypeScript, static typing, and interfaces in 100 seconds.',
+    channelTitle: 'Fireship',
+    publishedAt: '2021-02-09T17:00:00Z',
     thumbnails: {
-      high: { url: 'https://i.ytimg.com/vi/fJ9rUzIMcZQ/hqdefault.jpg' },
-      maxres: { url: 'https://i.ytimg.com/vi/fJ9rUzIMcZQ/maxresdefault.jpg' }
+      high: { url: 'https://i.ytimg.com/vi/zQnBQ4tB3ZA/hqdefault.jpg' },
+      maxres: { url: 'https://i.ytimg.com/vi/zQnBQ4tB3ZA/maxresdefault.jpg' }
     },
-    duration: '5:59',
-    viewCount: '1790000000',
-    likeCount: '12400000',
-    commentCount: '870000'
+    duration: '2:21',
+    viewCount: '1540000',
+    likeCount: '89000',
+    commentCount: '2100',
+    tags: ['Tech', 'TypeScript', 'Programming', 'JavaScript']
+  },
+  {
+    id: 'PEM0Vs8jf1w',
+    title: 'JVKE - golden hour (Official Music Video)',
+    description: 'The official music video for "golden hour" by JVKE. Nostalgic piano melodies and cinematic yearning.',
+    channelTitle: 'JVKE',
+    publishedAt: '2022-10-12T16:00:00Z',
+    thumbnails: {
+      high: { url: 'https://i.ytimg.com/vi/PEM0Vs8jf1w/hqdefault.jpg' },
+      maxres: { url: 'https://i.ytimg.com/vi/PEM0Vs8jf1w/maxresdefault.jpg' }
+    },
+    duration: '3:52',
+    viewCount: '290000000',
+    likeCount: '4100000',
+    commentCount: '58000',
+    tags: ['Yearning', 'Piano', 'Golden Hour', 'JVKE', 'Cinematic']
+  },
+  {
+    id: 'jfKfPfyJRdk',
+    title: 'lofi hip hop radio - beats to relax/study/code to ☕️',
+    description: 'Peaceful music for coding, studying, and late night focus.',
+    channelTitle: 'Lofi Girl',
+    publishedAt: '2024-01-01T00:00:00Z',
+    thumbnails: {
+      high: { url: 'https://i.ytimg.com/vi/jfKfPfyJRdk/hqdefault.jpg' },
+      maxres: { url: 'https://i.ytimg.com/vi/jfKfPfyJRdk/maxresdefault.jpg' }
+    },
+    duration: 'Live',
+    viewCount: '68500000',
+    likeCount: '7800000',
+    commentCount: '490000',
+    tags: ['Lo-Fi', 'Tech', 'Coding', 'Study', 'Chill']
   }
 ];

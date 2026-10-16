@@ -1,19 +1,34 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/webp" href="/assets/immonkeitube-logo.webp" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#09090b" />
+    <meta name="theme-color" content="#09090b" id="theme-color-meta" />
     <title>ImmonkeiTube - Next-Gen YouTube Player</title>
     <meta
       name="description"
       content="Play, discover, and enjoy YouTube videos in high fidelity with custom YouTube Data API v3 integration, watch history, and instant URL playback."
     />
-    <meta name="author" content="Immonkei.dev" />
-    <meta name="creator" content="Immonkei.dev" />
+    <meta name="author" content="Immonkei (https://devfolio-immonkei.vercel.app/)" />
+    <meta name="creator" content="Immonkei (https://devfolio-immonkei.vercel.app/)" />
+    <script>
+      (function() {
+        try {
+          var stored = localStorage.getItem('immonkeitube_theme');
+          var isDark = stored ? stored === 'dark' : true; // Default dark for YouTube experience
+          if (isDark) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+            var meta = document.getElementById('theme-color-meta');
+            if (meta) meta.setAttribute('content', '#f8fafc');
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
-  <body class="bg-zinc-950 text-zinc-100 min-h-screen">
+  <body class="min-h-screen">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
